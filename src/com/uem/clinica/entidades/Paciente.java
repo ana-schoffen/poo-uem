@@ -16,6 +16,11 @@ public class Paciente extends Pessoa{
 
     private ArrayList<String> alergias;
 
+    public Paciente(String nome, Calendar dataNascimento, Endereco endereco, String celular, Convenio convenio) {
+        super(nome, dataNascimento, endereco, celular);
+        this.convenio = convenio;
+    }
+
     public Paciente(String nome, Calendar dataNascimento, Endereco endereco, String celular, String email, Convenio convenio) {
         super(nome, dataNascimento, endereco, celular, email);
         this.convenio = convenio;

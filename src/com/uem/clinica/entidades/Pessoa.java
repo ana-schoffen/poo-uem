@@ -11,6 +11,13 @@ public class Pessoa {
     private String celular;
     private String email;
 
+    public Pessoa(String nome, Calendar dataNascimento, Endereco endereco, String celular) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.endereco = endereco;
+        this.celular = celular;
+    }
+
     public Pessoa(String nome, Calendar dataNascimento, Endereco endereco, String celular, String email) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;

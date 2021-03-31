@@ -6,6 +6,10 @@ import java.util.Calendar;
 
 public class Secretaria extends Pessoa{
 
+    public Secretaria(String nome, Calendar dataNascimento, Endereco endereco, String celular) {
+        super(nome, dataNascimento, endereco, celular);
+    }
+
     public Secretaria(String nome, Calendar dataNascimento, Endereco endereco, String celular, String email) {
         super(nome, dataNascimento, endereco, celular, email);
     }

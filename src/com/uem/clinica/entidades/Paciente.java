@@ -6,7 +6,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Paciente extends Pessoa{
+public class Paciente{
+
+    private String nome;
+    private LocalDate dataNascimento;
+    private Endereco endereco;
+    private String celular;
+    private String email;
+    private String genero;
 
     private Convenio convenio;
 
@@ -16,18 +23,61 @@ public class Paciente extends Pessoa{
 
     private ArrayList<String> alergias;
 
-    public Paciente(){
-
-    }
-
-    public Paciente(String nome, LocalDate dataNascimento, Endereco endereco, String celular, Convenio convenio) {
-        super(nome, dataNascimento, endereco, celular);
-        this.convenio = convenio;
-    }
-
     public Paciente(String nome, LocalDate dataNascimento, Endereco endereco, String celular, String email, Convenio convenio) {
-        super(nome, dataNascimento, endereco, celular, email);
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.endereco = endereco;
+        this.celular = celular;
+        this.email = email;
         this.convenio = convenio;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
     public Convenio getConvenio() {

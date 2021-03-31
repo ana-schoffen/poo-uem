@@ -12,10 +12,9 @@ public class Main {
 
         Endereco aux = new Endereco("Av. Paulista", 40, "Apt 100", "Centro", "São Paulo", "SP", 20000000);
 
-        Secretaria sec1 = new Secretaria("Maria", LocalDate.of(2000, 8, 11) , aux, "(44)99722-0011", "example@example.com");
-        Paciente pac1 = sec1.criarPaciente("João", LocalDate.of(2000, 8, 11), aux, "(44) 99511-0000", Convenio.Particular);
+        Secretaria sec1 = new Secretaria();
+        Paciente pac1 = sec1.criarPaciente("João", LocalDate.of(2000, 8, 11), aux, "(44) 99511-0000", "example@example.com", Convenio.Particular);
 
-        System.out.println(sec1.getNome());
 
     }
 }

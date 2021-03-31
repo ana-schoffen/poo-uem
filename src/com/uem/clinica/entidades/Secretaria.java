@@ -5,22 +5,10 @@ import com.uem.clinica.util.Endereco;
 
 import java.time.LocalDate;
 
-public class Secretaria extends Pessoa {
+public class Secretaria {
 
     public Secretaria(){
 
-    }
-
-    public Secretaria(String nome, LocalDate dataNascimento, Endereco endereco, String celular) {
-        super(nome, dataNascimento, endereco, celular);
-    }
-
-    public Secretaria(String nome, LocalDate dataNascimento, Endereco endereco, String celular, String email) {
-        super(nome, dataNascimento, endereco, celular, email);
-    }
-
-    public Paciente criarPaciente(String nome, LocalDate dataNascimento, Endereco endereco, String celular, Convenio convenio) {
-        return new Paciente(nome, dataNascimento, endereco, celular, convenio);
     }
 
     public Paciente criarPaciente(String nome, LocalDate dataNascimento, Endereco endereco, String celular, String email, Convenio convenio) {

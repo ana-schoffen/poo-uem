@@ -2,11 +2,11 @@ package com.uem.clinica.entidades;
 
 import com.uem.clinica.util.Endereco;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 public class Pessoa {
     private String nome;
-    private Calendar dataNascimento;
+    private LocalDate dataNascimento;
     private Endereco endereco;
     private String celular;
     private String email;
@@ -16,14 +16,14 @@ public class Pessoa {
 
     }
 
-    public Pessoa(String nome, Calendar dataNascimento, Endereco endereco, String celular) {
+    public Pessoa(String nome, LocalDate dataNascimento, Endereco endereco, String celular) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.endereco = endereco;
         this.celular = celular;
     }
 
-    public Pessoa(String nome, Calendar dataNascimento, Endereco endereco, String celular, String email) {
+    public Pessoa(String nome, LocalDate dataNascimento, Endereco endereco, String celular, String email) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.endereco = endereco;
@@ -39,11 +39,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public Calendar getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Calendar dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

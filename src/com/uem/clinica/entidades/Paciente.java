@@ -2,8 +2,8 @@ package com.uem.clinica.entidades;
 
 import com.uem.clinica.util.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 public class Paciente extends Pessoa{
@@ -20,12 +20,12 @@ public class Paciente extends Pessoa{
 
     }
 
-    public Paciente(String nome, Calendar dataNascimento, Endereco endereco, String celular, Convenio convenio) {
+    public Paciente(String nome, LocalDate dataNascimento, Endereco endereco, String celular, Convenio convenio) {
         super(nome, dataNascimento, endereco, celular);
         this.convenio = convenio;
     }
 
-    public Paciente(String nome, Calendar dataNascimento, Endereco endereco, String celular, String email, Convenio convenio) {
+    public Paciente(String nome, LocalDate dataNascimento, Endereco endereco, String celular, String email, Convenio convenio) {
         super(nome, dataNascimento, endereco, celular, email);
         this.convenio = convenio;
     }

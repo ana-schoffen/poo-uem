@@ -5,6 +5,7 @@ import com.uem.clinica.util.TipoConsulta;
 import java.util.Calendar;
 
 public class Consulta {
+    private int id;
     private Calendar data;
     private Medico medico;
     private Paciente paciente;
@@ -20,6 +21,14 @@ public class Consulta {
         this.medico = medico;
         this.paciente = paciente;
         this.tipo = tipo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Prontuario getProntuario() {

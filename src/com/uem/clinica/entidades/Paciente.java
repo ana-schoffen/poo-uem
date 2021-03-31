@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class Paciente{
 
+    private int id;
     private String nome;
     private LocalDate dataNascimento;
     private Endereco endereco;
@@ -30,6 +31,14 @@ public class Paciente{
         this.celular = celular;
         this.email = email;
         this.convenio = convenio;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {

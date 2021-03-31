@@ -1,4 +1,5 @@
 package com.uem.clinica;
+import com.uem.clinica.banco.DadosClinica;
 import com.uem.clinica.terminal.Terminal;
 import com.uem.clinica.terminal.TerminalMedico;
 import com.uem.clinica.terminal.TerminalSecretaria;
@@ -7,6 +8,9 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+
+        DadosClinica banco = new DadosClinica();
+
         Scanner scan = new Scanner(System.in);
         int opt;
 
@@ -29,7 +33,7 @@ public class Main {
         do {
             term.listarOperacoes();
             opt = scan.nextInt();
-            term.mapear(opt);
+            term.mapear(banco, opt);
         } while (opt != 0);
 
     }

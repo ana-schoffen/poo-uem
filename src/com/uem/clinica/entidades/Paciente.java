@@ -24,6 +24,10 @@ public class Paciente{
 
     private ArrayList<String> alergias;
 
+    public Paciente() {
+
+    }
+
     public Paciente(String nome, LocalDate dataNascimento, Endereco endereco, String celular, String email, Convenio convenio) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;

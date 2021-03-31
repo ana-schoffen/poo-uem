@@ -2,11 +2,11 @@ package com.uem.clinica.entidades;
 
 import com.uem.clinica.util.TipoConsulta;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 public class Consulta {
     private int id;
-    private Calendar data;
+    private LocalDateTime data;
     private Medico medico;
     private Paciente paciente;
     private Prontuario prontuario;
@@ -16,7 +16,7 @@ public class Consulta {
 
     }
 
-    public Consulta(Calendar data, Medico medico, Paciente paciente, TipoConsulta tipo) {
+    public Consulta(LocalDateTime data, Medico medico, Paciente paciente, TipoConsulta tipo) {
         this.data = data;
         this.medico = medico;
         this.paciente = paciente;
@@ -39,11 +39,11 @@ public class Consulta {
         this.prontuario = prontuario;
     }
 
-    public Calendar getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(Calendar data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

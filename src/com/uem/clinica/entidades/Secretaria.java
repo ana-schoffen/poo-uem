@@ -1,5 +1,6 @@
 package com.uem.clinica.entidades;
 
+import com.uem.clinica.banco.DadosClinica;
 import com.uem.clinica.util.Convenio;
 import com.uem.clinica.util.Endereco;
 
@@ -11,11 +12,24 @@ public class Secretaria {
 
     }
 
-    public Paciente criarPaciente(String nome, LocalDate dataNascimento, Endereco endereco, String celular, String email, Convenio convenio) {
-        return new Paciente(nome, dataNascimento, endereco, celular, email, convenio);
+    public void criarPaciente(DadosClinica banco, String nome, LocalDate dataNascimento, Endereco endereco,
+                              String celular,
+                              String email,
+                              Convenio convenio) {
+
+        Paciente p = new Paciente(nome, dataNascimento, endereco, celular, email, convenio);
+        banco.adicionarPaciente(p);
     }
 
-    public void atualizarPaciente(Paciente paciente, String nome, LocalDate dataNascimento, Endereco endereco, String celular, Convenio convenio) {
+    public void atualizarPaciente(DadosClinica banco, int id, String nome, LocalDate dataNascimento,
+                                  Endereco endereco,
+                                   String celular, String email, Convenio convenio) {
+        Paciente paciente = banco.buscarPaciente(id);
+
+        if (paciente == null) {
+            return;
+        }
+
         paciente.setNome(nome);
         paciente.setDataNascimento(dataNascimento);
         paciente.setEndereco(endereco);
@@ -23,16 +37,7 @@ public class Secretaria {
         paciente.setConvenio(convenio);
     }
 
-    public void atualizarPaciente(Paciente paciente, String nome, LocalDate dataNascimento, Endereco endereco, String celular, String email, Convenio convenio) {
-        paciente.setNome(nome);
-        paciente.setDataNascimento(dataNascimento);
-        paciente.setEndereco(endereco);
-        paciente.setCelular(celular);
-        paciente.setEmail(email);
-        paciente.setConvenio(convenio);
-    }
-
-    public void removerPaciente(Paciente paciente) {
-        paciente = null;
+    public void removerPaciente(DadosClinica banco, int id) {
+        banco.removerPaciente(id);
     }
 }

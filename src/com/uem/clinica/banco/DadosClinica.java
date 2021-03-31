@@ -35,8 +35,9 @@ public class DadosClinica {
         return null;
     }
 
-    public void removerPaciente(Paciente p) {
-        pacientes.remove(p);
+    public void removerPaciente(int id) {
+        pacientes.removeIf(p -> p.getId() == id);
+
     }
 
     public void adicionarConsulta(Consulta c) {

@@ -1,20 +1,36 @@
 package com.uem.clinica;
-import com.uem.clinica.entidades.Paciente;
-import com.uem.clinica.entidades.Secretaria;
-import com.uem.clinica.util.Convenio;
-import com.uem.clinica.util.Endereco;
-
-import java.time.LocalDate;
+import com.uem.clinica.terminal.Terminal;
+import com.uem.clinica.terminal.TerminalMedico;
+import com.uem.clinica.terminal.TerminalSecretaria;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int opt;
 
-        Endereco aux = new Endereco("Av. Paulista", 40, "Apt 100", "Centro", "São Paulo", "SP", 20000000);
+        do {
+            System.out.println("===\t\tCLINICA MÉDICA\t\t===\n");
+            System.out.println("1. Entrar como secretária");
+            System.out.println("2. Entrar como médico\n");
+            System.out.print("> ");
+            opt = scan.nextInt();
+        } while (opt != 1 && opt != 2);
 
-        Secretaria sec1 = new Secretaria();
-        Paciente pac1 = sec1.criarPaciente("João", LocalDate.of(2000, 8, 11), aux, "(44) 99511-0000", "example@example.com", Convenio.Particular);
+        Terminal term;
 
+        if (opt == 1) {
+            term = new TerminalSecretaria();
+        } else {
+            term = new TerminalMedico();
+        }
+
+        do {
+            term.listarOperacoes();
+            opt = scan.nextInt();
+            term.mapear(opt);
+        } while (opt != 0);
 
     }
 }

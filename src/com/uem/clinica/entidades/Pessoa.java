@@ -10,6 +10,11 @@ public class Pessoa {
     private Endereco endereco;
     private String celular;
     private String email;
+    private String genero;
+
+    public Pessoa(){
+
+    }
 
     public Pessoa(String nome, Calendar dataNascimento, Endereco endereco, String celular) {
         this.nome = nome;
@@ -64,5 +69,13 @@ public class Pessoa {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 }

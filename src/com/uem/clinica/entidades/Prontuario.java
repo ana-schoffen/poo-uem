@@ -8,6 +8,10 @@ public class Prontuario {
     private String diagnostico;
     private HashMap<String, String> prescricao;
 
+    public Prontuario(){
+
+    }
+
     public Prontuario(ArrayList<String> sintomas, String diagnostico, HashMap<String, String> prescricao) {
         this.sintomas = sintomas;
         this.diagnostico = diagnostico;

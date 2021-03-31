@@ -8,6 +8,10 @@ public class Medico extends Pessoa {
 
     private int crm;
 
+    public Medico(){
+
+    }
+
     public Medico(String nome, Calendar dataNascimento, Endereco endereco, String celular, int crm) {
         super(nome, dataNascimento, endereco, celular);
         this.crm = crm;

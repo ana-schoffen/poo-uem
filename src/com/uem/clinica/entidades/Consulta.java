@@ -11,6 +11,10 @@ public class Consulta {
     private Prontuario prontuario;
     private TipoConsulta tipo;
 
+    public Consulta(){
+
+    }
+
     public Consulta(Calendar data, Medico medico, Paciente paciente, TipoConsulta tipo) {
         this.data = data;
         this.medico = medico;

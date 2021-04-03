@@ -1,6 +1,5 @@
 package com.uem.clinica.terminal;
 
-import com.uem.clinica.banco.DadosClinica;
 import com.uem.clinica.entidades.Paciente;
 import com.uem.clinica.entidades.Secretaria;
 import com.uem.clinica.util.Convenio;
@@ -13,7 +12,7 @@ import java.util.Scanner;
 
 public class TerminalSecretaria implements Terminal{
     private final Secretaria secretaria;
-    private Scanner scan;
+    private final Scanner scan;
 
     public TerminalSecretaria() {
         this.secretaria = new Secretaria();
@@ -36,17 +35,25 @@ public class TerminalSecretaria implements Terminal{
     }
 
     @Override
-    public void mapear(DadosClinica banco, int operacao) {
+    public void mapear(int operacao) {
+        String nome, cel, email;
+        LocalDate nasc;
+        Endereco end;
+        Convenio convenio;
+        Paciente aux;
+        int op, id;
+
         switch (operacao) {
             case 0:
                 System.out.println("Saindo...");
+                scan.close();
                 break;
             case 1:
                 System.out.print("Nome: ");
-                String nome = (scan.nextLine());
+                nome = (scan.nextLine());
                 System.out.print("Data de Nascimento (dd/mm/aaaa): ");
-                LocalDate nasc = LocalDate.parse(scan.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                Endereco end = new Endereco();
+                nasc = LocalDate.parse(scan.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                end = new Endereco();
                 System.out.print("Rua: ");
                 end.setRua(scan.nextLine());
                 System.out.print("Número: ");
@@ -64,36 +71,106 @@ public class TerminalSecretaria implements Terminal{
                 System.out.print("Estado: ");
                 end.setEstado(scan.nextLine());
                 System.out.print("Celular: ");
-                String cel = scan.nextLine();
+                cel = scan.nextLine();
                 System.out.print("Email: ");
-                String email = scan.nextLine();
+                email = scan.nextLine();
 
-                int op;
+                op = getConvenio();
 
-                do {
-                    System.out.println("Convênio:");
-                    System.out.println("1. Particular");
-                    System.out.println("2. Plano");
+                convenio = (op == 1) ? Convenio.Particular : Convenio.Plano;
 
-                    System.out.print("\n> ");
-                    op = scan.nextInt();
-                } while (op != 1 && op != 2);
-
-                Convenio convenio = (op == 1) ? Convenio.Particular : Convenio.Plano;
-
-                this.secretaria.criarPaciente(banco, nome, nasc, end, cel, email, convenio);
+                this.secretaria.criarPaciente(nome, nasc, end, cel, email, convenio);
                 break;
             case 2:
-                ArrayList<Paciente> pacientes = banco.getPacientes();
+                ArrayList<Paciente> pacientes = secretaria.listarPacientes();
                 System.out.println("PACIENTES:");
                 pacientes.forEach(p -> System.out.println(p.toString()));
                 break;
             case 3:
-                System.out.println("Operação 3 secretária");
+                System.out.print("Digite o id do paciente: ");
+                id = scan.nextInt();
+                scan.nextLine();
+
+                aux = secretaria.detalhesPaciente(id);
+
+                if (aux == null) {
+                    System.out.println("Paciente não existe");
+                    return;
+                }
+
+                System.out.println("Paciente: " + aux.toString());
+                System.out.println("Digite os novos dados: ");
+
+
+                System.out.print("Nome: ");
+                nome = (scan.nextLine());
+                System.out.print("Data de Nascimento (dd/mm/aaaa): ");
+                nasc = LocalDate.parse(scan.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                end = new Endereco();
+                System.out.print("Rua: ");
+                end.setRua(scan.nextLine());
+                System.out.print("Número: ");
+                end.setNumero(scan.nextInt());
+                scan.nextLine();
+                System.out.print("Bairro: ");
+                end.setBairro(scan.nextLine());
+                System.out.print("Complemento: ");
+                end.setComplemento(scan.nextLine());
+                System.out.print("CEP: ");
+                end.setCep(scan.nextInt());
+                scan.nextLine();
+                System.out.print("Cidade: ");
+                end.setCidade(scan.nextLine());
+                System.out.print("Estado: ");
+                end.setEstado(scan.nextLine());
+                System.out.print("Celular: ");
+                cel = scan.nextLine();
+                System.out.print("Email: ");
+                email = scan.nextLine();
+
+                op = getConvenio();
+
+                convenio = (op == 1) ? Convenio.Particular : Convenio.Plano;
+
+                this.secretaria.atualizarPaciente(id, nome, nasc, end, cel, email, convenio);
                 break;
             case 4:
-                System.out.println("Operação 4 secretária");
+                System.out.print("Digite o id do paciente: ");
+                id = scan.nextInt();
+                scan.nextLine();
+
+                aux = secretaria.detalhesPaciente(id);
+
+                if (aux == null) {
+                    System.out.println("Paciente não existe");
+                    return;
+                }
+
+                System.out.println("Paciente: " + aux.toString());
+                System.out.print("Tem certeza que deseja remover o paciente? (Digite SIM para confirmar) ");
+                String confirmacao = scan.nextLine();
+
+                if (confirmacao.equals("SIM")) {
+                    System.out.println("Removendo paciente "+ id);
+                    secretaria.removerPaciente(id);
+                } else {
+                    System.out.println("Operação cancelada");
+                }
+
                 break;
         }
+    }
+
+    private int getConvenio() {
+        int op;
+        do {
+            System.out.println("Convênio:");
+            System.out.println("1. Particular");
+            System.out.println("2. Plano");
+
+            System.out.print("\n> ");
+            op = scan.nextInt();
+        } while (op != 1 && op != 2);
+        return op;
     }
 }

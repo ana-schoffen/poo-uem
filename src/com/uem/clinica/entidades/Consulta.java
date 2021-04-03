@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 public class Consulta {
     private int id;
     private LocalDateTime data;
-    private Medico medico;
     private Paciente paciente;
     private Prontuario prontuario;
     private TipoConsulta tipo;
@@ -16,9 +15,8 @@ public class Consulta {
 
     }
 
-    public Consulta(LocalDateTime data, Medico medico, Paciente paciente, TipoConsulta tipo) {
+    public Consulta(LocalDateTime data, Paciente paciente, TipoConsulta tipo) {
         this.data = data;
-        this.medico = medico;
         this.paciente = paciente;
         this.tipo = tipo;
     }
@@ -47,13 +45,6 @@ public class Consulta {
         this.data = data;
     }
 
-    public Medico getMedico() {
-        return medico;
-    }
-
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
 
     public Paciente getPaciente() {
         return paciente;

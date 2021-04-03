@@ -4,8 +4,10 @@ import com.uem.clinica.entidades.Paciente;
 import com.uem.clinica.entidades.Secretaria;
 import com.uem.clinica.util.Convenio;
 import com.uem.clinica.util.Endereco;
+import com.uem.clinica.util.TipoConsulta;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -28,9 +30,10 @@ public class TerminalSecretaria implements Terminal{
         System.out.println("3. Atualizar Paciente");
         System.out.println("4. Remover Paciente");
         System.out.println("5. Agendar Consulta");
-        System.out.println("6. Atualizar Consulta");
-        System.out.println("7. Cancelar Consulta");
-        System.out.println("8. Consultas amanhã");
+        System.out.println("6. Listar Consultas");
+        System.out.println("7. Atualizar Consulta");
+        System.out.println("8. Cancelar Consulta");
+        System.out.println("9. Consultas amanhã");
         System.out.print("\n> ");
     }
 
@@ -40,6 +43,7 @@ public class TerminalSecretaria implements Terminal{
         LocalDate nasc;
         Endereco end;
         Convenio convenio;
+        TipoConsulta tipo;
         Paciente aux;
         int op, id;
 
@@ -158,6 +162,34 @@ public class TerminalSecretaria implements Terminal{
                 }
 
                 break;
+            case 5:
+                System.out.print("Digite o id do paciente: ");
+                id = scan.nextInt();
+                scan.nextLine();
+
+                aux = secretaria.detalhesPaciente(id);
+
+                if (aux == null) {
+                    System.out.println("Paciente não existe");
+                    return;
+                }
+
+                System.out.println("Digite o horário da consulta (hh:mm dd/mm/aaaa): ");
+                LocalDateTime agenda;
+                agenda = LocalDateTime.parse(scan.nextLine(), DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));
+
+                do {
+                    System.out.println("Tipo:");
+                    System.out.println("1. Regular");
+                    System.out.println("2. Retorno");
+
+                    System.out.print("\n> ");
+                    op = scan.nextInt();
+                } while (op != 1 && op != 2);
+
+                tipo = (op == 1) ? TipoConsulta.Regular : TipoConsulta.Retorno;
+
+                secretaria.criarConsulta(agenda, aux, tipo);
         }
     }
 

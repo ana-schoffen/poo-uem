@@ -20,6 +20,10 @@ public class DadosClinica {
         return pacientes;
     }
 
+    public ArrayList<Consulta> getConsultas() {
+        return consultas;
+    }
+
     public void adicionarPaciente(Paciente p) {
         lastIdPaciente += 1;
         p.setId(lastIdPaciente);
@@ -55,7 +59,7 @@ public class DadosClinica {
         return null;
     }
 
-    public void removerConsulta(Consulta p) {
-        consultas.remove(p);
+    public void removerConsulta(int id) {
+        consultas.removeIf(c -> c.getId() == id);
     }
 }

@@ -3,6 +3,7 @@ package com.uem.clinica.entidades;
 import com.uem.clinica.util.TipoConsulta;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Consulta {
     private int id;
@@ -60,5 +61,14 @@ public class Consulta {
 
     public void setTipo(TipoConsulta tipo) {
         this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d|%s|%d|%s",
+                             id,
+                             data.format(DateTimeFormatter.ofPattern("hh:mm - dd/MM/yyyy")),
+                             paciente.getId(),
+                             tipo.toString());
     }
 }

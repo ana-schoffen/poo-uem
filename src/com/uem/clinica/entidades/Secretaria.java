@@ -56,6 +56,12 @@ public class Secretaria {
 
     public void removerPaciente(int id) {
         pacienteDAO.removerEntidade(id);
+        ArrayList<Consulta> aux = consultaDAO.getEntidades();
+
+        for (Consulta c : aux)
+            if (c.getPaciente().getId() == id) {
+                consultaDAO.removerEntidade(c.getId());
+            }
     }
 
     public void criarConsulta(LocalDateTime data, Paciente p, TipoConsulta tipo) {

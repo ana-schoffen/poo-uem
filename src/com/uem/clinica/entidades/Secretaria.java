@@ -1,30 +1,42 @@
 package com.uem.clinica.entidades;
 
-import com.uem.clinica.banco.DadosClinica;
+import com.uem.clinica.dao.DadosClinica;
 import com.uem.clinica.util.Convenio;
 import com.uem.clinica.util.Endereco;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Secretaria {
 
-    public Secretaria(){
+    private final DadosClinica dao;
 
+    public Secretaria(){
+        dao = new DadosClinica();
     }
 
-    public void criarPaciente(DadosClinica banco, String nome, LocalDate dataNascimento, Endereco endereco,
+    public void criarPaciente(String nome, LocalDate dataNascimento, Endereco endereco,
                               String celular,
                               String email,
                               Convenio convenio) {
 
         Paciente p = new Paciente(nome, dataNascimento, endereco, celular, email, convenio);
-        banco.adicionarPaciente(p);
+        dao.adicionarPaciente(p);
     }
 
-    public void atualizarPaciente(DadosClinica banco, int id, String nome, LocalDate dataNascimento,
+    public Paciente detalhesPaciente(int id) {
+        return dao.buscarPaciente(id);
+    }
+
+
+    public ArrayList<Paciente> listarPacientes() {
+        return dao.getPacientes();
+    }
+
+    public void atualizarPaciente(int id, String nome, LocalDate dataNascimento,
                                   Endereco endereco,
                                    String celular, String email, Convenio convenio) {
-        Paciente paciente = banco.buscarPaciente(id);
+        Paciente paciente = dao.buscarPaciente(id);
 
         if (paciente == null) {
             return;
@@ -37,7 +49,7 @@ public class Secretaria {
         paciente.setConvenio(convenio);
     }
 
-    public void removerPaciente(DadosClinica banco, int id) {
-        banco.removerPaciente(id);
+    public void removerPaciente(int id) {
+        dao.removerPaciente(id);
     }
 }

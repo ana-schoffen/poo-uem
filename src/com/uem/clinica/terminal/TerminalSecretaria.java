@@ -42,10 +42,12 @@ public class TerminalSecretaria implements Terminal{
     public void mapear(int operacao) {
         String nome, cel, email;
         LocalDate nasc;
+        LocalDateTime horario;
         Endereco end;
         Convenio convenio;
         TipoConsulta tipo;
-        Paciente aux;
+        Paciente aux_p;
+        Consulta aux_c;
         int op, id;
 
         switch (operacao) {
@@ -96,14 +98,14 @@ public class TerminalSecretaria implements Terminal{
                 id = scan.nextInt();
                 scan.nextLine();
 
-                aux = secretaria.detalhesPaciente(id);
+                aux_p = secretaria.detalhesPaciente(id);
 
-                if (aux == null) {
+                if (aux_p == null) {
                     System.out.println("Paciente não existe");
                     return;
                 }
 
-                System.out.println("Paciente: " + aux.toString());
+                System.out.println("Paciente: " + aux_p.toString());
                 System.out.println("Digite os novos dados: ");
 
 
@@ -144,14 +146,14 @@ public class TerminalSecretaria implements Terminal{
                 id = scan.nextInt();
                 scan.nextLine();
 
-                aux = secretaria.detalhesPaciente(id);
+                aux_p = secretaria.detalhesPaciente(id);
 
-                if (aux == null) {
+                if (aux_p == null) {
                     System.out.println("Paciente não existe");
                     return;
                 }
 
-                System.out.println("Paciente: " + aux.toString());
+                System.out.println("Paciente: " + aux_p.toString());
                 System.out.print("Tem certeza que deseja remover o paciente? (Digite SIM para confirmar) ");
                 String confirmacao = scan.nextLine();
 
@@ -168,36 +170,76 @@ public class TerminalSecretaria implements Terminal{
                 id = scan.nextInt();
                 scan.nextLine();
 
-                aux = secretaria.detalhesPaciente(id);
+                aux_p = secretaria.detalhesPaciente(id);
 
-                if (aux == null) {
+                if (aux_p == null) {
                     System.out.println("Paciente não existe");
                     return;
                 }
 
                 System.out.print("Digite o horário da consulta (hh:mm dd/mm/aaaa): ");
-                LocalDateTime agenda;
-                agenda = LocalDateTime.parse(scan.nextLine(), DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy"));
+                horario = LocalDateTime.parse(scan.nextLine(), DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy"));
 
-                do {
-                    System.out.println("Tipo:");
-                    System.out.println("1. Regular");
-                    System.out.println("2. Retorno");
-
-                    System.out.print("\n> ");
-                    op = scan.nextInt();
-                } while (op != 1 && op != 2);
+                op = getTipo();
 
                 tipo = (op == 1) ? TipoConsulta.Regular : TipoConsulta.Retorno;
 
-                secretaria.criarConsulta(agenda, aux, tipo);
+                secretaria.criarConsulta(horario, aux_p, tipo);
                 break;
             case 6:
                 ArrayList<Consulta> consultas = secretaria.listarConsultas();
                 System.out.println("Consultas:");
-                consultas.forEach(p -> System.out.println(p.toString()));
+                System.out.println("ID|HORÁRIO|ID PACIENTE|TIPO");
+                consultas.forEach(p -> System.out.println(p));
+                break;
+            case 7:
+                System.out.print("Digite o id da consulta: ");
+                id = scan.nextInt();
+                scan.nextLine();
+
+                aux_c = secretaria.detalhesConsulta(id);
+
+                if (aux_c == null) {
+                    System.out.println("Consulta não existe");
+                    return;
+                }
+
+                System.out.println("Consulta: " + aux_c);
+                System.out.println("Digite os novos dados: ");
+
+                System.out.print("Digite o id do paciente: ");
+                id = scan.nextInt();
+                scan.nextLine();
+
+                aux_p = secretaria.detalhesPaciente(id);
+
+                if (aux_p == null) {
+                    System.out.println("Paciente não existe");
+                    return;
+                }
+
+                System.out.print("Digite o horário da consulta (hh:mm dd/mm/aaaa): ");
+                horario = LocalDateTime.parse(scan.nextLine(), DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy"));
+
+                op = getTipo();
+
+                tipo = (op == 1) ? TipoConsulta.Regular : TipoConsulta.Retorno;
+                secretaria.atualizarConsulta(id, horario, aux_p, tipo);
                 break;
         }
+    }
+
+    private int getTipo() {
+        int op;
+        do {
+            System.out.println("Tipo:");
+            System.out.println("1. Regular");
+            System.out.println("2. Retorno");
+
+            System.out.print("\n> ");
+            op = scan.nextInt();
+        } while (op != 1 && op != 2);
+        return op;
     }
 
     private int getConvenio() {

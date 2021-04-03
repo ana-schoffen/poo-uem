@@ -40,7 +40,7 @@ public class TerminalSecretaria implements Terminal{
 
     @Override
     public void mapear(int operacao) {
-        String nome, cel, email;
+        String nome, cel, email, confirmacao;
         LocalDate nasc;
         LocalDateTime horario;
         Endereco end;
@@ -155,7 +155,7 @@ public class TerminalSecretaria implements Terminal{
 
                 System.out.println("Paciente: " + aux_p.toString());
                 System.out.print("Tem certeza que deseja remover o paciente? (Digite SIM para confirmar) ");
-                String confirmacao = scan.nextLine();
+                confirmacao = scan.nextLine();
 
                 if (confirmacao.equals("SIM")) {
                     System.out.println("Removendo paciente "+ id);
@@ -226,6 +226,42 @@ public class TerminalSecretaria implements Terminal{
                 tipo = (op == 1) ? TipoConsulta.Regular : TipoConsulta.Retorno;
                 secretaria.atualizarConsulta(id, horario, aux_p, tipo);
                 break;
+            case 8:
+                System.out.print("Digite o id da consulta: ");
+                id = scan.nextInt();
+                scan.nextLine();
+
+                aux_c = secretaria.detalhesConsulta(id);
+
+                if (aux_c == null) {
+                    System.out.println("Consulta não existe");
+                    return;
+                }
+
+                System.out.println("Consulta: " + aux_c);
+                System.out.print("Tem certeza que deseja remover a consulta? (Digite SIM para confirmar) ");
+                confirmacao = scan.nextLine();
+
+                if (confirmacao.equals("SIM")) {
+                    System.out.println("Removendo consulta "+ id);
+                    secretaria.removerConsulta(id);
+                } else {
+                    System.out.println("Operação cancelada");
+                }
+
+                break;
+            case 9:
+                consultas = secretaria.listarConsultas();
+
+                LocalDateTime now = LocalDateTime.now();
+                LocalDateTime limite = LocalDate.now().plusDays(1).atTime(23,59);
+                System.out.println("Consultas amanhã:");
+                for (Consulta c : consultas) {
+                    if (c.getData().isAfter(now) && c.getData().isBefore(limite)) {
+                        System.out.println(c);
+                    }
+                }
+
         }
     }
 

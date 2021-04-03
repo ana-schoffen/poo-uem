@@ -1,5 +1,7 @@
 package com.uem.clinica.util;
 
+import java.time.format.DateTimeFormatter;
+
 public class Endereco {
     private String rua;
     private int numero;
@@ -77,5 +79,17 @@ public class Endereco {
 
     public void setCep(int cep) {
         this.cep = cep;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %d - %s - %s - %s - %s - %s",
+                              rua,
+                              numero,
+                              complemento,
+                              bairro,
+                              cidade,
+                              estado,
+                              cep);
     }
 }

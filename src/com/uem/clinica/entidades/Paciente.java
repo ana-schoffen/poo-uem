@@ -3,10 +3,11 @@ package com.uem.clinica.entidades;
 import com.uem.clinica.util.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Paciente{
+public class Paciente {
 
     private int id;
     private String nome;
@@ -14,7 +15,6 @@ public class Paciente{
     private Endereco endereco;
     private String celular;
     private String email;
-    private String genero;
 
     private Convenio convenio;
 
@@ -85,14 +85,6 @@ public class Paciente{
         this.email = email;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
     public Convenio getConvenio() {
         return convenio;
     }
@@ -123,5 +115,17 @@ public class Paciente{
 
     public void setAlergias(ArrayList<String> alergias) {
         this.alergias = alergias;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d|%s|%s|%s|%s|%s|%s",
+                              id,
+                              nome,
+                              dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                              endereco.toString(),
+                              celular,
+                              email,
+                              convenio.toString());
     }
 }

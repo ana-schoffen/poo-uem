@@ -35,7 +35,7 @@ public class ConsultaDAO implements InterfaceDAO<Consulta> {
     }
 
     @Override
-    public boolean removerEntidade(int id) {
-        return consultas.removeIf(c -> c.getId() == id);
+    public void removerEntidade(int id) {
+        consultas.removeIf(c -> c.getId() == id);
     }
 }

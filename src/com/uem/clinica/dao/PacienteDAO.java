@@ -35,7 +35,7 @@ public class PacienteDAO implements InterfaceDAO<Paciente> {
     }
 
     @Override
-    public boolean removerEntidade(int id) {
-        return pacientes.removeIf(p -> p.getId() == id);
+    public void removerEntidade(int id) {
+        pacientes.removeIf(p -> p.getId() == id);
     }
 }

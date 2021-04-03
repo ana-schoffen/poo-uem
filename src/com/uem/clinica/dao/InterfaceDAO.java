@@ -6,5 +6,5 @@ public interface InterfaceDAO<T> {
     ArrayList<T> getEntidades();
     void adicionarEntidade(T obj);
     T buscarEntidade(int id);
-    boolean removerEntidade(int id);
+    void removerEntidade(int id);
 }

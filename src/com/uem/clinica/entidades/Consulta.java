@@ -67,7 +67,7 @@ public class Consulta {
     public String toString() {
         return String.format("%d|%s|%d|%s",
                              id,
-                             data.format(DateTimeFormatter.ofPattern("hh:mm - dd/MM/yyyy")),
+                             data.format(DateTimeFormatter.ofPattern("kk:mm - dd/MM/yyyy")),
                              paciente.getId(),
                              tipo.toString());
     }

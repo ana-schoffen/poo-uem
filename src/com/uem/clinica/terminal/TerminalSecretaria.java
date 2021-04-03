@@ -1,5 +1,6 @@
 package com.uem.clinica.terminal;
 
+import com.uem.clinica.entidades.Consulta;
 import com.uem.clinica.entidades.Paciente;
 import com.uem.clinica.entidades.Secretaria;
 import com.uem.clinica.util.Convenio;
@@ -174,9 +175,9 @@ public class TerminalSecretaria implements Terminal{
                     return;
                 }
 
-                System.out.println("Digite o horário da consulta (hh:mm dd/mm/aaaa): ");
+                System.out.print("Digite o horário da consulta (hh:mm dd/mm/aaaa): ");
                 LocalDateTime agenda;
-                agenda = LocalDateTime.parse(scan.nextLine(), DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));
+                agenda = LocalDateTime.parse(scan.nextLine(), DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy"));
 
                 do {
                     System.out.println("Tipo:");
@@ -190,6 +191,12 @@ public class TerminalSecretaria implements Terminal{
                 tipo = (op == 1) ? TipoConsulta.Regular : TipoConsulta.Retorno;
 
                 secretaria.criarConsulta(agenda, aux, tipo);
+                break;
+            case 6:
+                ArrayList<Consulta> consultas = secretaria.listarConsultas();
+                System.out.println("Consultas:");
+                consultas.forEach(p -> System.out.println(p.toString()));
+                break;
         }
     }
 

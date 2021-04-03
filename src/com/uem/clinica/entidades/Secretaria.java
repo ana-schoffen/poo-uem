@@ -1,6 +1,7 @@
 package com.uem.clinica.entidades;
 
-import com.uem.clinica.dao.DadosClinica;
+import com.uem.clinica.dao.ConsultaDAO;
+import com.uem.clinica.dao.PacienteDAO;
 import com.uem.clinica.util.Convenio;
 import com.uem.clinica.util.Endereco;
 import com.uem.clinica.util.TipoConsulta;
@@ -11,10 +12,12 @@ import java.util.ArrayList;
 
 public class Secretaria {
 
-    private final DadosClinica dao;
+    private final ConsultaDAO consultaDAO;
+    private final PacienteDAO pacienteDAO;
 
     public Secretaria(){
-        dao = new DadosClinica();
+        consultaDAO = new ConsultaDAO();
+        pacienteDAO = new PacienteDAO();
     }
 
     public void criarPaciente(String nome, LocalDate dataNascimento, Endereco endereco,
@@ -23,22 +26,22 @@ public class Secretaria {
                               Convenio convenio) {
 
         Paciente p = new Paciente(nome, dataNascimento, endereco, celular, email, convenio);
-        dao.adicionarPaciente(p);
+        pacienteDAO.adicionarEntidade(p);
     }
 
     public Paciente detalhesPaciente(int id) {
-        return dao.buscarPaciente(id);
+        return pacienteDAO.buscarEntidade(id);
     }
 
 
     public ArrayList<Paciente> listarPacientes() {
-        return dao.getPacientes();
+        return pacienteDAO.getEntidades();
     }
 
     public void atualizarPaciente(int id, String nome, LocalDate dataNascimento,
                                   Endereco endereco,
                                    String celular, String email, Convenio convenio) {
-        Paciente paciente = dao.buscarPaciente(id);
+        Paciente paciente = pacienteDAO.buscarEntidade(id);
 
         if (paciente == null) {
             return;
@@ -52,26 +55,26 @@ public class Secretaria {
     }
 
     public void removerPaciente(int id) {
-        dao.removerPaciente(id);
+        pacienteDAO.removerEntidade(id);
     }
 
     public void criarConsulta(LocalDateTime data, Paciente p, TipoConsulta tipo) {
 
         Consulta c = new Consulta(data, p, tipo );
-        dao.adicionarConsulta(c);
+        consultaDAO.adicionarEntidade(c);
     }
 
     public Consulta detalhesConsulta(int id) {
-        return dao.buscarConsulta(id);
+        return consultaDAO.buscarEntidade(id);
     }
 
 
     public ArrayList<Consulta> listarConsultas() {
-        return dao.getConsultas();
+        return consultaDAO.getEntidades();
     }
 
     public void atualizarConsulta(int id, LocalDateTime data, Paciente p, TipoConsulta tipo) {
-        Consulta consulta = dao.buscarConsulta(id);
+        Consulta consulta = consultaDAO.buscarEntidade(id);
 
         if (consulta == null) {
             return;
@@ -83,7 +86,7 @@ public class Secretaria {
     }
 
     public void removerConsulta(int id) {
-        dao.removerConsulta(id);
+        consultaDAO.removerEntidade(id);
     }
 
 

@@ -1,4 +1,4 @@
-package com.uem.clinica.banco;
+package com.uem.clinica.dao;
 
 import com.uem.clinica.entidades.Consulta;
 import com.uem.clinica.entidades.Paciente;

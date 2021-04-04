@@ -1,6 +1,7 @@
 package com.uem.clinica.terminal;
 
 import com.uem.clinica.entidades.Consulta;
+import com.uem.clinica.entidades.GerenciadorMensagens;
 import com.uem.clinica.entidades.Paciente;
 import com.uem.clinica.entidades.Secretaria;
 import com.uem.clinica.util.Convenio;
@@ -16,10 +17,16 @@ import java.util.Scanner;
 public class TerminalSecretaria implements Terminal{
     private final Secretaria secretaria;
     private final Scanner scan;
+    private final GerenciadorMensagens msgSys;
 
     public TerminalSecretaria() {
         this.secretaria = new Secretaria();
         this.scan = new Scanner(System.in);
+        this.msgSys = new GerenciadorMensagens();
+
+        System.out.println("Enviando mensagens para consultas de amanhã");
+        msgSys.enviarSMS(secretaria.listarConsultas());
+        msgSys.enviarEmail(secretaria.listarConsultas());
     }
 
     @Override
@@ -190,7 +197,7 @@ public class TerminalSecretaria implements Terminal{
                 ArrayList<Consulta> consultas = secretaria.listarConsultas();
                 System.out.println("Consultas:");
                 System.out.println("ID|HORÁRIO|ID PACIENTE|TIPO");
-                consultas.forEach(p -> System.out.println(p));
+                consultas.forEach(System.out::println);
                 break;
             case 7:
                 System.out.print("Digite o id da consulta: ");

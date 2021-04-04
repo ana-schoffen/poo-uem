@@ -38,7 +38,7 @@ public class TerminalMedico implements Terminal{
 
     @Override
     public void mapear(int operacao) {
-        String addAux;
+        String addAux, ponto;
         ArrayList<Paciente> pacientes;
         Paciente auxP;
         int id, op;
@@ -120,6 +120,10 @@ public class TerminalMedico implements Terminal{
 
                 break;
             case 4:
+                if (paciente == null) {
+                    System.out.println("Nenhum paciente selecionado");
+                    return;
+                }
                 System.out.println("Paciente: " + paciente.getNome());
                 System.out.println("=== Cirurgias ===");
                 paciente.getCirurgias().forEach(System.out::println);
@@ -140,7 +144,103 @@ public class TerminalMedico implements Terminal{
                     System.out.println("Nenhum");
                 break;
             case 5:
-                System.out.println("Operação 5 médico");
+                if (paciente == null) {
+                    System.out.println("Nenhum paciente selecionado");
+                    return;
+                }
+
+                do {
+                    System.out.println("Editar:");
+                    System.out.println("1. Alergias");
+                    System.out.println("2. Cirurgias");
+                    System.out.println("3. Outros dados");
+                    System.out.print("\n> ");
+                    op = scan.nextInt();
+                    scan.nextLine();
+                } while (op != 1 && op != 2 && op != 3);
+
+                switch (op) {
+                    case 1:
+                        System.out.println("=== Alergias ===");
+                        for (String p : paciente.getAlergias()) {
+                            System.out.println(paciente.getAlergias().indexOf(p) + " | " + p);
+                        }
+                        if (paciente.getAlergias().isEmpty())
+                            System.out.println("Nenhuma");
+
+                        System.out.print("Editar qual entrada? (Use os indices acima) ");
+                        id = scan.nextInt();
+                        scan.nextLine();
+
+                        try {
+                            ponto = paciente.getDadosAdicionais().get(id);
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println("Entrada inválida!");
+                            return;
+                        }
+
+                        System.out.println("Editando: " + ponto);
+                        System.out.print("Nova entrada => ");
+                        addAux = scan.nextLine();
+
+                        paciente.getAlergias().remove(id);
+                        paciente.getAlergias().add(id, addAux);
+                        break;
+                    case 2:
+                        System.out.println("=== Cirurgias ===");
+                        for (String p : paciente.getCirurgias()) {
+                            System.out.println(paciente.getCirurgias().indexOf(p) + " | " + p);
+                        }
+                        if (paciente.getCirurgias().isEmpty())
+                            System.out.println("Nenhuma");
+
+                        System.out.print("Editar qual entrada? (Use os indices acima) ");
+                        id = scan.nextInt();
+                        scan.nextLine();
+
+                        try {
+                            ponto = paciente.getDadosAdicionais().get(id);
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println("Entrada inválida!");
+                            return;
+                        }
+
+                        System.out.println("Editando: " + ponto);
+                        System.out.print("Nova entrada => ");
+                        addAux = scan.nextLine();
+
+                        paciente.getCirurgias().remove(id);
+                        paciente.getCirurgias().add(id, addAux);
+                        break;
+                    case 3:
+                        System.out.println("=== Outros dados ===");
+                        for (String p : paciente.getDadosAdicionais()) {
+                            System.out.println(paciente.getDadosAdicionais().indexOf(p) + " | " + p);
+                        }
+                        if (paciente.getDadosAdicionais().isEmpty())
+                            System.out.println("Nenhuma");
+
+                        System.out.print("Editar qual entrada? (Use os indices acima) ");
+                        id = scan.nextInt();
+                        scan.nextLine();
+
+                        try {
+                            ponto = paciente.getDadosAdicionais().get(id);
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println("Entrada inválida!");
+                            return;
+                        }
+
+                        System.out.println("Editando: " + ponto);
+                        System.out.print("Nova entrada => ");
+                        addAux = scan.nextLine();
+
+                        paciente.getDadosAdicionais().remove(id);
+                        paciente.getDadosAdicionais().add(id, addAux);
+                        break;
+                }
+
+
                 break;
             case 6:
                 System.out.println("Operação 6 médico");

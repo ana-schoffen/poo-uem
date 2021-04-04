@@ -5,9 +5,10 @@ import com.uem.clinica.entidades.Medico;
 import com.uem.clinica.entidades.Paciente;
 import com.uem.clinica.entidades.Prontuario;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class TerminalMedico implements Terminal{
     private final Medico medico;
@@ -29,7 +30,7 @@ public class TerminalMedico implements Terminal{
         System.out.println("3. Listar pacientes");
         System.out.println("4. Adicionar detalhes paciente");
         System.out.println("5. Listar detalhes paciente");
-        System.out.println("6. Atualiazar detalhes paciente");
+        System.out.println("6. Atualizar detalhes paciente");
         System.out.println("7. Remover detalhes paciente");
         System.out.println("8. Criar prontuário");
         System.out.println("9. Mostrar prontuário");
@@ -199,26 +200,22 @@ public class TerminalMedico implements Terminal{
                         for (String p : paciente.getAlergias()) {
                             System.out.println(paciente.getAlergias().indexOf(p) + " | " + p);
                         }
-                        if (paciente.getAlergias().isEmpty()){
+                        if (paciente.getAlergias().isEmpty()) {
                             System.out.println("Nenhuma");
                             return;
                         }
-
                         System.out.print("Editar qual entrada? (Use os indices acima) ");
                         id = scan.nextInt();
                         scan.nextLine();
-
                         try {
                             ponto = paciente.getAlergias().get(id);
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println("Entrada inválida!");
                             return;
                         }
-
                         System.out.println("Editando: " + ponto);
                         System.out.print("Nova entrada => ");
                         addAux = scan.nextLine();
-
                         paciente.getAlergias().remove(id);
                         paciente.getAlergias().add(id, addAux);
                         break;
@@ -231,22 +228,18 @@ public class TerminalMedico implements Terminal{
                             System.out.println("Nenhuma");
                             return;
                         }
-
                         System.out.print("Editar qual entrada? (Use os indices acima) ");
                         id = scan.nextInt();
                         scan.nextLine();
-
                         try {
                             ponto = paciente.getCirurgias().get(id);
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println("Entrada inválida!");
                             return;
                         }
-
                         System.out.println("Editando: " + ponto);
                         System.out.print("Nova entrada => ");
                         addAux = scan.nextLine();
-
                         paciente.getCirurgias().remove(id);
                         paciente.getCirurgias().add(id, addAux);
                         break;
@@ -259,22 +252,18 @@ public class TerminalMedico implements Terminal{
                             System.out.println("Nenhuma");
                             return;
                         }
-
                         System.out.print("Editar qual entrada? (Use os indices acima) ");
                         id = scan.nextInt();
                         scan.nextLine();
-
                         try {
                             ponto = paciente.getDadosAdicionais().get(id);
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println("Entrada inválida!");
                             return;
                         }
-
                         System.out.println("Editando: " + ponto);
                         System.out.print("Nova entrada => ");
                         addAux = scan.nextLine();
-
                         paciente.getDadosAdicionais().remove(id);
                         paciente.getDadosAdicionais().add(id, addAux);
                         break;
@@ -306,18 +295,15 @@ public class TerminalMedico implements Terminal{
                         }
                         if (paciente.getAlergias().isEmpty())
                             System.out.println("Nenhuma");
-
                         System.out.print("Remover qual entrada? (Use os indices acima) ");
                         id = scan.nextInt();
                         scan.nextLine();
-
                         try {
                             ponto = paciente.getAlergias().get(id);
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println("Entrada inválida!");
                             return;
                         }
-
                         System.out.println("Removendo: " + ponto);
                         paciente.getAlergias().remove(id);
                         break;
@@ -328,18 +314,15 @@ public class TerminalMedico implements Terminal{
                         }
                         if (paciente.getCirurgias().isEmpty())
                             System.out.println("Nenhuma");
-
                         System.out.print("Remover qual entrada? (Use os indices acima) ");
                         id = scan.nextInt();
                         scan.nextLine();
-
                         try {
                             ponto = paciente.getCirurgias().get(id);
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println("Entrada inválida!");
                             return;
                         }
-
                         System.out.println("Removendo: " + ponto);
                         paciente.getCirurgias().remove(id);
                         break;
@@ -350,18 +333,15 @@ public class TerminalMedico implements Terminal{
                         }
                         if (paciente.getDadosAdicionais().isEmpty())
                             System.out.println("Nenhuma");
-
                         System.out.print("Remover qual entrada? (Use os indices acima) ");
                         id = scan.nextInt();
                         scan.nextLine();
-
                         try {
                             ponto = paciente.getDadosAdicionais().get(id);
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println("Entrada inválida!");
                             return;
                         }
-
                         System.out.println("Removendo: " + ponto);
                         paciente.getDadosAdicionais().remove(id);
                         break;
@@ -437,22 +417,18 @@ public class TerminalMedico implements Terminal{
                             System.out.println("Nenhuma");
                             return;
                         }
-
                         System.out.print("Editar qual entrada? (Use os indices acima) ");
                         id = scan.nextInt();
                         scan.nextLine();
-
                         try {
                             ponto = consulta.getProntuario().getSintomas().get(id);
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println("Entrada inválida!");
                             return;
                         }
-
                         System.out.println("Editando: " + ponto);
                         System.out.print("Nova entrada => ");
                         addAux = scan.nextLine();
-
                         consulta.getProntuario().getSintomas().remove(id);
                         consulta.getProntuario().getSintomas().add(id, addAux);
                         break;
@@ -461,7 +437,6 @@ public class TerminalMedico implements Terminal{
                         System.out.println("Atual: " + consulta.getProntuario().getDiagnostico());
                         System.out.print("Nova entrada => ");
                         addAux = scan.nextLine();
-
                         consulta.getProntuario().setDiagnostico(addAux);
                         break;
                     case 3:
@@ -473,21 +448,17 @@ public class TerminalMedico implements Terminal{
                             System.out.println("Nenhuma");
                             return;
                         }
-
                         System.out.print("Editar qual entrada? (Digite o nome da entrada) ");
                         addAux = scan.nextLine();
-
                         try {
                             ponto = consulta.getProntuario().getPrescricao().get(addAux);
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println("Entrada inválida!");
                             return;
                         }
-
                         System.out.println("Editando: " + addAux + " - " + ponto);
                         System.out.print("Nova entrada (<medicamento>,<posologia>) => ");
                         ponto = scan.nextLine();
-
                         String[] prescricao = ponto.split(",");
 
                         try{
@@ -496,7 +467,6 @@ public class TerminalMedico implements Terminal{
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println("Entrada inválida!");
                         }
-
                         consulta.getProntuario().getPrescricao().remove(addAux);
                         break;
                 }
@@ -519,10 +489,45 @@ public class TerminalMedico implements Terminal{
                 System.out.println("Paciente: " + paciente.getNome());
                 System.out.println("Consulta: " + consulta);
 
-
                 HashMap<String, String> receita = consulta.getProntuario().getPrescricao();
                 receita.keySet().forEach(k -> System.out.println(k + " - " + receita.get(k)));
 
+                System.out.println("Assinado: Dra." + medico.getNome());
+                break;
+            case 13:
+                if (verificarProntuario()) return;
+                System.out.println("=== Atestado ===");
+                System.out.println("Paciente: " + paciente.getNome());
+                System.out.println("Para o dia: " + consulta.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                System.out.println("Assinado: Dra." + medico.getNome());
+                break;
+            case 14:
+                if (verificarProntuario()) return;
+                System.out.println("Digite o nome completo do acompanhante: ");
+                System.out.print("> ");
+                String acompanhante = scan.nextLine();
+
+                System.out.println("=== Declaração de acompanhamento ===");
+                System.out.println("Acompanhante: " + acompanhante);
+                System.out.println("Para o paciente: " + paciente.getNome());
+                System.out.println("Para o dia: " + consulta.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                System.out.println("Assinado: Dra." + medico.getNome());
+
+                break;
+            case 15:
+                LocalDateTime primeiroDiaMes = LocalDate.now().withDayOfMonth(1).atStartOfDay();
+                LocalDateTime today = LocalDateTime.now();
+
+                consultas = medico.getConsultas();
+                HashSet<Paciente> consultasMes = new HashSet<>();
+
+                for(Consulta c : consultas) {
+                    if (c.getData().isAfter(primeiroDiaMes) && c.getData().isBefore(today)) {
+                        consultasMes.add(c.getPaciente());
+                    }
+                }
+
+                System.out.println("Pacientes este mês: " + consultasMes.size());
                 break;
             default:
                 System.out.println("Operação Inválida!");

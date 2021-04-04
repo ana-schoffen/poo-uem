@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Medico {
 
+    private final String nome = "Emanuele Eduarda Mendes";
     private final PacienteDAO pacienteDAO;
     private final ConsultaDAO consultaDAO;
 
@@ -53,9 +54,30 @@ public class Medico {
 
         pacienteDAO.adicionarEntidade(p);
 
-        Consulta c = new Consulta(LocalDateTime.of(2021, 4, 5, 15, 0),
+        Consulta c = new Consulta(LocalDateTime.now().plusHours(2),
                                   p,
                                   TipoConsulta.Regular
+                                  );
+
+        consultaDAO.adicionarEntidade(c);
+
+        c = new Consulta(LocalDateTime.now().minusHours(1),
+                                  pacienteDAO.buscarEntidade(1),
+                                  TipoConsulta.Regular
+                                  );
+
+        consultaDAO.adicionarEntidade(c);
+
+        c = new Consulta(LocalDateTime.now().minusDays(2),
+                                  p,
+                                  TipoConsulta.Retorno
+                                  );
+
+        consultaDAO.adicionarEntidade(c);
+
+        c = new Consulta(LocalDateTime.now().plusDays(10),
+                                  p,
+                                  TipoConsulta.Retorno
                                   );
 
         consultaDAO.adicionarEntidade(c);
@@ -75,5 +97,7 @@ public class Medico {
         return consultaDAO.getEntidades();
     }
 
-
+    public String getNome() {
+        return nome;
+    }
 }

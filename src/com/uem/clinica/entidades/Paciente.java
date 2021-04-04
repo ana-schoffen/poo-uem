@@ -25,7 +25,9 @@ public class Paciente {
     private ArrayList<String> alergias;
 
     public Paciente() {
-
+        cirurgias = new ArrayList<>();
+        alergias = new ArrayList<>();
+        dadosAdicionais = new HashMap<>();
     }
 
     public Paciente(String nome, LocalDate dataNascimento, Endereco endereco, String celular, String email, Convenio convenio) {
@@ -35,6 +37,9 @@ public class Paciente {
         this.celular = celular;
         this.email = email;
         this.convenio = convenio;
+        cirurgias = new ArrayList<>();
+        alergias = new ArrayList<>();
+        dadosAdicionais = new HashMap<>();
     }
 
     public int getId() {

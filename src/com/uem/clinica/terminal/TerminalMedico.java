@@ -3,12 +3,17 @@ package com.uem.clinica.terminal;
 import com.uem.clinica.entidades.Medico;
 import com.uem.clinica.entidades.Paciente;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class TerminalMedico implements Terminal{
     private Medico medico;
     private Paciente paciente;
+    private Scanner scan;
 
     public TerminalMedico() {
-        this.medico = new Medico();
+        medico = new Medico();
+        scan = new Scanner(System.in);
     }
 
     @Override
@@ -16,36 +21,123 @@ public class TerminalMedico implements Terminal{
         System.out.println("\n===\t\tMÉDICO\t\t===");
         System.out.println("0. Sair");
         System.out.println("1. Definir paciente");
-        System.out.println("2. Adicionar detalhes paciente");
-        System.out.println("3. Atualiazar detalhes paciente");
-        System.out.println("4. Remover detalhes paciente");
-        System.out.println("5. Criar prontuário");
-        System.out.println("6. Atualizar prontuário");
-        System.out.println("7. Remover prontuário");
-        System.out.println("8. Gerar receita");
-        System.out.println("9. Gerar atestado");
-        System.out.println("10. Gerar declaração de acompanhamento");
-        System.out.println("11. Ver n° de pacientes atendidos no mês");
+        System.out.println("2. Listar pacientes");
+        System.out.println("3. Adicionar detalhes paciente");
+        System.out.println("4. Listar detalhes paciente");
+        System.out.println("5. Atualiazar detalhes paciente");
+        System.out.println("6. Remover detalhes paciente");
+        System.out.println("7. Criar prontuário");
+        System.out.println("8. Atualizar prontuário");
+        System.out.println("9. Remover prontuário");
+        System.out.println("10. Gerar receita");
+        System.out.println("11. Gerar atestado");
+        System.out.println("12. Gerar declaração de acompanhamento");
+        System.out.println("13. Ver n° de pacientes atendidos no mês");
         System.out.print("\n> ");
     }
 
     @Override
     public void mapear(int operacao) {
+        String addAux;
+        ArrayList<Paciente> pacientes;
+        Paciente auxP;
+        int id, op;
         switch (operacao) {
             case 0:
                 System.out.println("Saindo...");
                 break;
             case 1:
-                System.out.println("Operação 1 médico");
+                System.out.print("Digite o Id do paciente: ");
+                id = scan.nextInt();
+                scan.nextLine();
+
+                auxP = medico.buscarPaciente(id);
+
+                if (auxP == null) {
+                    System.out.println("Paciente não existe");
+                    return;
+                }
+
+                paciente = auxP;
                 break;
             case 2:
-                System.out.println("Operação 2 médico");
+                System.out.println("Pacientes: ");
+                pacientes = medico.getPacientes();
+                pacientes.forEach(System.out::println);
                 break;
             case 3:
-                System.out.println("Operação 3 médico");
+                if (paciente == null) {
+                    System.out.println("Nenhum paciente selecionado");
+                    return;
+                }
+
+                do {
+                    System.out.println("Adicionar:");
+                    System.out.println("1. Alergias");
+                    System.out.println("2. Cirurgias");
+                    System.out.println("3. Outros dados");
+                    System.out.print("\n> ");
+                    op = scan.nextInt();
+                    scan.nextLine();
+                } while (op != 1 && op != 2 && op != 3);
+
+                switch (op) {
+                    case 1:
+                        System.out.println("Digite uma alergia (nada para parar)");
+                        do {
+                            System.out.print("> ");
+                            addAux = scan.nextLine();
+
+                            if (!addAux.equals("")) {
+                                paciente.getAlergias().add(addAux);
+                            }
+                        } while (!addAux.equals(""));
+                        break;
+                    case 2:
+                        System.out.println("Digite uma cirurgia (nada para parar)");
+                        do {
+                            System.out.print("> ");
+                            addAux = scan.nextLine();
+
+                            if (!addAux.equals("")) {
+                                paciente.getCirurgias().add(addAux);
+                            }
+                        } while (!addAux.equals(""));
+                        break;
+                    case 3:
+                        System.out.println("Digite outros dados (nada para parar)");
+                        do {
+                            System.out.print("> ");
+                            addAux = scan.nextLine();
+
+                            if (!addAux.equals("")) {
+                                paciente.getDadosAdicionais().add(addAux);
+                            }
+                        } while (!addAux.equals(""));
+                        break;
+                }
+
+
                 break;
             case 4:
-                System.out.println("Operação 4 médico");
+                System.out.println("Paciente: " + paciente.getNome());
+                System.out.println("=== Cirurgias ===");
+                paciente.getCirurgias().forEach(System.out::println);
+
+                if (paciente.getCirurgias().isEmpty())
+                    System.out.println("Nenhuma");
+
+                System.out.println("=== Alergias ===");
+                paciente.getAlergias().forEach(System.out::println);
+
+                if (paciente.getAlergias().isEmpty())
+                    System.out.println("Nenhuma");
+
+                System.out.println("=== Outros dados ===");
+                paciente.getDadosAdicionais().forEach(System.out::println);
+
+                if (paciente.getDadosAdicionais().isEmpty())
+                    System.out.println("Nenhum");
                 break;
             case 5:
                 System.out.println("Operação 5 médico");

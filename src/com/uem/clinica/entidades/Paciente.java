@@ -5,7 +5,6 @@ import com.uem.clinica.util.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Paciente {
 
@@ -18,7 +17,7 @@ public class Paciente {
 
     private Convenio convenio;
 
-    private HashMap<String,String> dadosAdicionais;
+    private ArrayList<String> dadosAdicionais;
 
     private ArrayList<String> cirurgias;
 
@@ -27,7 +26,7 @@ public class Paciente {
     public Paciente() {
         cirurgias = new ArrayList<>();
         alergias = new ArrayList<>();
-        dadosAdicionais = new HashMap<>();
+        dadosAdicionais = new ArrayList<>();
     }
 
     public Paciente(String nome, LocalDate dataNascimento, Endereco endereco, String celular, String email, Convenio convenio) {
@@ -39,7 +38,7 @@ public class Paciente {
         this.convenio = convenio;
         cirurgias = new ArrayList<>();
         alergias = new ArrayList<>();
-        dadosAdicionais = new HashMap<>();
+        dadosAdicionais = new ArrayList<>();
     }
 
     public int getId() {
@@ -98,11 +97,11 @@ public class Paciente {
         this.convenio = convenio;
     }
 
-    public HashMap<String, String> getDadosAdicionais() {
+    public ArrayList<String> getDadosAdicionais() {
         return dadosAdicionais;
     }
 
-    public void setDadosAdicionais(HashMap<String, String> dadosAdicionais) {
+    public void setDadosAdicionais(ArrayList<String> dadosAdicionais) {
         this.dadosAdicionais = dadosAdicionais;
     }
 

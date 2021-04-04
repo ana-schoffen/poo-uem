@@ -13,13 +13,14 @@ public class Consulta {
     private TipoConsulta tipo;
 
     public Consulta(){
-
+        prontuario = new Prontuario();
     }
 
     public Consulta(LocalDateTime data, Paciente paciente, TipoConsulta tipo) {
         this.data = data;
         this.paciente = paciente;
         this.tipo = tipo;
+        prontuario = new Prontuario();
     }
 
     public int getId() {

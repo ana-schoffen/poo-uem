@@ -400,18 +400,7 @@ public class TerminalMedico implements Terminal{
                 } while (!addAux.equals(""));
                 break;
             case 9:
-                if (paciente == null) {
-                    System.out.println("Nenhum paciente selecionado");
-                    return;
-                }
-                if (consulta == null) {
-                    System.out.println("Nenhuma consulta selecionada");
-                    return;
-                }
-                if (consulta.getProntuario() == null) {
-                    System.out.println("Nenhum prontuário criado");
-                    return;
-                }
+                if (verificarProntuario()) return;
 
                 System.out.println("Paciente: " + paciente.getNome());
                 System.out.println("=== Sintomas ===");
@@ -426,18 +415,7 @@ public class TerminalMedico implements Terminal{
 
                 break;
             case 10:
-                if (paciente == null) {
-                    System.out.println("Nenhum paciente selecionado");
-                    return;
-                }
-                if (consulta == null) {
-                    System.out.println("Nenhuma consulta selecionada");
-                    return;
-                }
-                if (consulta.getProntuario() == null) {
-                    System.out.println("Nenhum prontuário criado");
-                    return;
-                }
+                if (verificarProntuario()) return;
 
                 do {
                     System.out.println("Editar:");
@@ -524,18 +502,7 @@ public class TerminalMedico implements Terminal{
                 }
                 break;
             case 11:
-                if (paciente == null) {
-                    System.out.println("Nenhum paciente selecionado");
-                    return;
-                }
-                if (consulta == null) {
-                    System.out.println("Nenhuma consulta selecionada");
-                    return;
-                }
-                if (consulta.getProntuario() == null) {
-                    System.out.println("Nenhum prontuário criado");
-                    return;
-                }
+                if (verificarProntuario()) return;
                 System.out.print("Tem certeza que deseja destruir o prontuário? (Digite SIM para confirmar) ");
                 String confirmacao = scan.nextLine();
 
@@ -547,11 +514,35 @@ public class TerminalMedico implements Terminal{
                 }
                 break;
             case 12:
-                System.out.println("Operação 11 médico");
+                if (verificarProntuario()) return;
+                System.out.println("=== RECEITA ===");
+                System.out.println("Paciente: " + paciente.getNome());
+                System.out.println("Consulta: " + consulta);
+
+
+                HashMap<String, String> receita = consulta.getProntuario().getPrescricao();
+                receita.keySet().forEach(k -> System.out.println(k + " - " + receita.get(k)));
+
                 break;
             default:
                 System.out.println("Operação Inválida!");
                 break;
         }
+    }
+
+    private boolean verificarProntuario() {
+        if (paciente == null) {
+            System.out.println("Nenhum paciente selecionado");
+            return true;
+        }
+        if (consulta == null) {
+            System.out.println("Nenhuma consulta selecionada");
+            return true;
+        }
+        if (consulta.getProntuario() == null) {
+            System.out.println("Nenhum prontuário criado");
+            return true;
+        }
+        return false;
     }
 }

@@ -19,7 +19,7 @@ public class Medico {
     public Medico(){
         consultaDAO = new ConsultaDAO();
         pacienteDAO = new PacienteDAO();
-
+        //cadastra alguns pacientes e consultas nos registros
         Endereco end = new Endereco("Rua José Anselmo da Silva",
                                     734,
                                     "Apt 101",

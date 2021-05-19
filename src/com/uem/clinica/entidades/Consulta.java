@@ -4,11 +4,26 @@ import com.uem.clinica.util.TipoConsulta;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
 public class Consulta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private LocalDateTime data;
+    
+    private LocalDateTime dataConsulta;
+    @ManyToOne
     private Paciente paciente;
+    @OneToOne(cascade = CascadeType.ALL)
     private Prontuario prontuario;
     private TipoConsulta tipo;
 
@@ -16,7 +31,7 @@ public class Consulta {
     }
 
     public Consulta(LocalDateTime data, Paciente paciente, TipoConsulta tipo) {
-        this.data = data;
+        this.dataConsulta = data;
         this.paciente = paciente;
         this.tipo = tipo;
     }
@@ -37,12 +52,12 @@ public class Consulta {
         this.prontuario = prontuario;
     }
 
-    public LocalDateTime getData() {
-        return data;
+    public LocalDateTime getDataConsulta() {
+        return dataConsulta;
     }
 
-    public void setData(LocalDateTime data) {
-        this.data = data;
+    public void setDataConsulta(LocalDateTime dataConsulta) {
+        this.dataConsulta = dataConsulta;
     }
 
 
@@ -66,7 +81,7 @@ public class Consulta {
     public String toString() {
         return String.format("%d|%s|%d|%s",
                              id,
-                             data.format(DateTimeFormatter.ofPattern("kk:mm - dd/MM/yyyy")),
+                             dataConsulta.format(DateTimeFormatter.ofPattern("kk:mm - dd/MM/yyyy")),
                              paciente.getId(),
                              tipo.toString());
     }

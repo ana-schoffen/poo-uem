@@ -16,7 +16,7 @@ public class GerenciadorMensagens {
         LocalDateTime limite = LocalDate.now().plusDays(1).atTime(23, 59);
 
         for(Consulta c : consultas) {
-            if (c.getData().isBefore(limite) && c.getData().isAfter(LocalDateTime.now())) {
+            if (c.getDataConsulta().isBefore(limite) && c.getDataConsulta().isAfter(LocalDateTime.now())) {
                 if (c.getPaciente().getEmail() != null) {
                     pacientes.add(c.getPaciente());
                 }
@@ -31,7 +31,7 @@ public class GerenciadorMensagens {
         LocalDateTime limite = LocalDate.now().plusDays(1).atTime(23, 59);
 
         for(Consulta c : consultas) {
-            if (c.getData().isBefore(limite) && c.getData().isAfter(LocalDateTime.now())) {
+            if (c.getDataConsulta().isBefore(limite) && c.getDataConsulta().isAfter(LocalDateTime.now())) {
                 if (c.getPaciente().getCelular() != null) {
                     pacientes.add(c.getPaciente());
                 }

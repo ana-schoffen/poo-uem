@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import javax.persistence.EntityManagerFactory;
 
 public class TerminalMedico implements Terminal{
     private final Medico medico;
@@ -16,8 +17,8 @@ public class TerminalMedico implements Terminal{
     private Consulta consulta;
     private final Scanner scan;
 
-    public TerminalMedico() {
-        medico = new Medico();
+    public TerminalMedico(EntityManagerFactory emf) {
+        medico = new Medico(emf);
         scan = new Scanner(System.in);
     }
 
@@ -75,7 +76,7 @@ public class TerminalMedico implements Terminal{
                 ArrayList<Consulta> consultas = medico.getConsultas();
                 int count = 0;
                 for (Consulta c : consultas) {
-                    if ( c.getPaciente() == paciente ) {
+                    if ( c.getPaciente().getId() == paciente.getId() ) {
                         System.out.println(c.getId() + " | " + c);
                         count += 1;
                     }
@@ -378,6 +379,7 @@ public class TerminalMedico implements Terminal{
                         }
                     }
                 } while (!addAux.equals(""));
+                medico.atualizarConsulta(consulta);
                 break;
             case 9:
                 if (verificarProntuario()) return;
@@ -498,7 +500,7 @@ public class TerminalMedico implements Terminal{
                 if (verificarProntuario()) return;
                 System.out.println("=== Atestado ===");
                 System.out.println("Paciente: " + paciente.getNome());
-                System.out.println("Para o dia: " + consulta.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                System.out.println("Para o dia: " + consulta.getDataConsulta().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 System.out.println("Assinado: Dra." + medico.getNome());
                 break;
             case 14:
@@ -510,7 +512,7 @@ public class TerminalMedico implements Terminal{
                 System.out.println("=== Declaração de acompanhamento ===");
                 System.out.println("Acompanhante: " + acompanhante);
                 System.out.println("Para o paciente: " + paciente.getNome());
-                System.out.println("Para o dia: " + consulta.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                System.out.println("Para o dia: " + consulta.getDataConsulta().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 System.out.println("Assinado: Dra." + medico.getNome());
 
                 break;
@@ -522,7 +524,7 @@ public class TerminalMedico implements Terminal{
                 HashSet<Paciente> consultasMes = new HashSet<>();
 
                 for(Consulta c : consultas) {
-                    if (c.getData().isAfter(primeiroDiaMes) && c.getData().isBefore(today)) {
+                    if (c.getDataConsulta().isAfter(primeiroDiaMes) && c.getDataConsulta().isBefore(today)) {
                         consultasMes.add(c.getPaciente());
                     }
                 }

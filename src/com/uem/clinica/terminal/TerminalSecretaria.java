@@ -13,14 +13,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.persistence.EntityManagerFactory;
 
 public class TerminalSecretaria implements Terminal{
     private final Secretaria secretaria;
     private final Scanner scan;
     private final GerenciadorMensagens msgSys;
 
-    public TerminalSecretaria() {
-        this.secretaria = new Secretaria();
+    public TerminalSecretaria(EntityManagerFactory emf) {
+        this.secretaria = new Secretaria(emf);
         this.scan = new Scanner(System.in);
         this.msgSys = new GerenciadorMensagens();
 
@@ -264,7 +265,7 @@ public class TerminalSecretaria implements Terminal{
                 LocalDateTime limite = LocalDate.now().plusDays(1).atTime(23,59);
                 System.out.println("Consultas amanhã:");
                 for (Consulta c : consultas) {
-                    if (c.getData().isAfter(now) && c.getData().isBefore(limite)) {
+                    if (c.getDataConsulta().isAfter(now) && c.getDataConsulta().isBefore(limite)) {
                         System.out.println(c);
                     }
                 }

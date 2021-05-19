@@ -5,16 +5,24 @@ import com.uem.clinica.util.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Paciente {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nome;
     private LocalDate dataNascimento;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
     private String celular;
     private String email;
-
     private Convenio convenio;
 
     private ArrayList<String> dadosAdicionais;

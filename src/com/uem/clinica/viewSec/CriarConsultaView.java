@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package com.uem.clinica.viewSec;
+import com.uem.clinica.entidades.Paciente;
 import com.uem.clinica.entidades.Secretaria;
+import com.uem.clinica.util.TipoConsulta;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
 
@@ -62,6 +66,8 @@ public class CriarConsultaView extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
+        hourInput.setText("  :  ");
+
         saveButton.setBackground(new java.awt.Color(60, 103, 15));
         saveButton.setText("Salvar");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -98,9 +104,7 @@ public class CriarConsultaView extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(59, 59, 59)))
+                            .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -160,12 +164,29 @@ public class CriarConsultaView extends javax.swing.JInternalFrame {
         // save Button
         String date = dateInput.getText();
         String hour = hourInput.getText();
-        String patientName = namePatientInput.getText();
+        
+        Paciente p = sec.detalhesPaciente(Integer.parseInt(namePatientInput.getText()));
+        
+        if (p == null) {
+            JOptionPane.showMessageDialog(null, "Paciente com id " + namePatientInput.getText() + " não existe!");
+        } else {
+            TipoConsulta t = TipoConsulta.Regular;
+            
+            if(visitSelector.getSelectedIndex() != 0) {
+                t = TipoConsulta.Retorno;
+            }
+            
+            LocalDateTime horario = LocalDateTime.parse(hour + " " + date, DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy"));
+            
+            sec.criarConsulta(horario, p, t);
+            
+            JOptionPane.showMessageDialog(rootPane, "Consulta criada com sucesso\n\n"
+                + date + "\n" + hour  + "\n" + p.getNome() + "\n");
+        }
         
         
         
-        JOptionPane.showMessageDialog(rootPane, "Agendamento Criado com sucesso\n\n"
-                + date + "\n" + hour  + "\n" + patientName + "\n");
+        
     }//GEN-LAST:event_saveButtonActionPerformed
 
 

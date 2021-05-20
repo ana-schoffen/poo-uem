@@ -53,6 +53,8 @@ public class Secretaria {
         paciente.setEndereco(endereco);
         paciente.setCelular(celular);
         paciente.setConvenio(convenio);
+        
+        pacienteDAO.adicionarEntidade(paciente);
     }
 
     public void removerPaciente(int id) {

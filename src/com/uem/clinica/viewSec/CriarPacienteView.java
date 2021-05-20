@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.uem.clinica.viewSec;
+import com.uem.clinica.entidades.Paciente;
 import javax.swing.JOptionPane;
 import com.uem.clinica.entidades.Secretaria;
 import com.uem.clinica.util.Convenio;
@@ -20,11 +21,44 @@ public class CriarPacienteView extends javax.swing.JInternalFrame{
     /**
      * Creates new form CadastroPaciente
      */
+    
+    private Paciente paciente;
+    
     public CriarPacienteView(EntityManagerFactory emf) {
         initComponents();
         this.sec = new Secretaria(emf);
     }
 
+    public CriarPacienteView(EntityManagerFactory emf, int id) {
+        initComponents();
+        this.sec = new Secretaria(emf);
+        paciente = sec.detalhesPaciente(id);
+        
+        if(paciente != null) {
+            birthDateInput.setText(paciente.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            
+            
+            emailInput.setText(paciente.getNome());
+            nameInput.setText(paciente.getNome());
+            phoneInput.setText(paciente.getCelular());
+            
+            Endereco e = paciente.getEndereco();
+            
+            ruaInput.setText(e.getRua());
+            bairroInput.setText(e.getBairro());
+            numeroInput.setText(Integer.toString(e.getNumero()));
+            cidadeInput.setText(e.getCidade());
+            complementoInput.setText(e.getComplemento());
+            cepInput.setText(Integer.toString(e.getCep()));
+            estadoInput.setText(e.getEstado());
+            
+            if(paciente.getConvenio() == Convenio.Particular){
+                convenioInput.setSelectedIndex(1);
+            }
+            
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -261,7 +295,7 @@ public class CriarPacienteView extends javax.swing.JInternalFrame{
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // Criar paciente
-
+        
         String birthDate = birthDateInput.getText();
         String email = emailInput.getText();
         String name = nameInput.getText();
@@ -282,11 +316,18 @@ public class CriarPacienteView extends javax.swing.JInternalFrame{
         if (convenioInput.getSelectedIndex() == 1) {
             conv = Convenio.Particular;
         }
+        
+        if(paciente == null) {
+            sec.criarPaciente(name, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), end, phone, email, conv);
+        } else {
+            sec.atualizarPaciente(paciente.getId(), name, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), end, phone, email, conv);
+        }
 
-        sec.criarPaciente(name, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), end, phone, email, conv);
+        
         JOptionPane.showMessageDialog(rootPane, "Paciente Criado com sucesso\n\n"
             + name + "\n" + email  + "\n" + birthDate + "\n" + conv.toString() + "\n" + end.toString() + "\n" + phone + "\n");
-
+            
+        
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void emailInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailInputActionPerformed

@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 package com.uem.clinica.viewSec;
+import com.uem.clinica.entidades.Consulta;
 import com.uem.clinica.entidades.Paciente;
 import com.uem.clinica.entidades.Secretaria;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.persistence.EntityManagerFactory;
@@ -13,23 +16,41 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
-public class ListarPacientes extends javax.swing.JInternalFrame {
+public class ListarConsultas extends javax.swing.JInternalFrame {
     private Secretaria sec;
-    private String[] colunas = {"ID", "Nome", "Data Nasc", "Endereço", "Celular", "Email", "Convênio"};
+    private String[] colunas = {"ID", "Data e Hora", "ID Paciente", "Nome Paciente"};
     private DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
             
 
-    public ListarPacientes(EntityManagerFactory emf) {
+    public ListarConsultas(EntityManagerFactory emf) {
         initComponents();
         jTable1.setPreferredScrollableViewportSize(jTable1.getPreferredScrollableViewportSize());
         
         this.sec = new Secretaria(emf);
         
-        ArrayList<Paciente> lista = sec.listarPacientes();
+        ArrayList<Consulta> lista = sec.listarConsultas();
         
-        for(Paciente p: lista) {
-            Object[] ob = {p.getId(), p.getNome(), p.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), p.getEndereco().toString(), p.getCelular(), p.getEmail(), p.getConvenio().toString()};
+        for(Consulta c: lista) {
+            Object[] ob = {c.getId(), c.getDataConsulta().format(DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy")), c.getPaciente().getId(), c.getPaciente().getNome()};
             tableModel.addRow(ob);
+        }
+    }
+    
+    public ListarConsultas(EntityManagerFactory emf, LocalDateTime dataInicial) {
+        initComponents();
+        jTable1.setPreferredScrollableViewportSize(jTable1.getPreferredScrollableViewportSize());
+        
+        this.sec = new Secretaria(emf);
+        
+        ArrayList<Consulta> lista = sec.listarConsultas();
+        
+        for(Consulta c: lista) {
+            LocalDateTime limite = LocalDate.now().plusDays(1).atTime(23,59);
+            
+            if (c.getDataConsulta().isAfter(dataInicial) && c.getDataConsulta().isBefore(limite)) {
+                Object[] ob = {c.getId(), c.getDataConsulta().format(DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy")), c.getPaciente().getId(), c.getPaciente().getNome()};
+                tableModel.addRow(ob);
+            }
         }
     }
 

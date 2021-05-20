@@ -5,15 +5,16 @@
  */
 package com.uem.clinica.view;
 
-import com.uem.clinica.viewSec.UpdateAppointmentPage;
-import com.uem.clinica.viewSec.UpdatePatientPage;
 import com.uem.clinica.viewSec.CriarPacienteView;
 import com.uem.clinica.viewSec.CriarConsultaView;
 
 import com.uem.clinica.entidades.Medico;
 import com.uem.clinica.entidades.Paciente;
+import com.uem.clinica.entidades.Secretaria;
+import com.uem.clinica.viewSec.ListarConsultas;
 import com.uem.clinica.viewSec.ListarPacientes;
 import java.awt.Component;
+import java.time.LocalDateTime;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JInternalFrame;
@@ -48,6 +49,7 @@ public class MainInterface extends javax.swing.JFrame {
         atualizarPacienteEscolhaMenu = new javax.swing.JMenuItem();
         removerPacienteEscolhaMenu = new javax.swing.JMenuItem();
         criarAgendamentoEscolhaMenu = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         atualizarAgendamentoEscolhaMenu = new javax.swing.JMenuItem();
         relatorioAgendamentoEscolhaMenu = new javax.swing.JMenuItem();
         cancelarAgendamentoEscolhaMenu = new javax.swing.JMenuItem();
@@ -67,6 +69,8 @@ public class MainInterface extends javax.swing.JFrame {
         numPacientesMesEscolha = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jDesktopPane1.setBackground(java.awt.SystemColor.desktop);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -121,6 +125,14 @@ public class MainInterface extends javax.swing.JFrame {
         });
         secretarioMenu.add(criarAgendamentoEscolhaMenu);
 
+        jMenuItem1.setText("Listar consultas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        secretarioMenu.add(jMenuItem1);
+
         atualizarAgendamentoEscolhaMenu.setText("Atualizar consulta");
         atualizarAgendamentoEscolhaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,10 +141,20 @@ public class MainInterface extends javax.swing.JFrame {
         });
         secretarioMenu.add(atualizarAgendamentoEscolhaMenu);
 
-        relatorioAgendamentoEscolhaMenu.setText("Gerar Relatório de Agendamentos");
+        relatorioAgendamentoEscolhaMenu.setText("Consultas amanhã");
+        relatorioAgendamentoEscolhaMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioAgendamentoEscolhaMenuActionPerformed(evt);
+            }
+        });
         secretarioMenu.add(relatorioAgendamentoEscolhaMenu);
 
-        cancelarAgendamentoEscolhaMenu.setText("Cancelar Agendamento");
+        cancelarAgendamentoEscolhaMenu.setText("Cancelar consulta");
+        cancelarAgendamentoEscolhaMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarAgendamentoEscolhaMenuActionPerformed(evt);
+            }
+        });
         secretarioMenu.add(cancelarAgendamentoEscolhaMenu);
 
         jMenuBar1.add(secretarioMenu);
@@ -255,17 +277,31 @@ public class MainInterface extends javax.swing.JFrame {
 
     private void atualizarPacienteEscolhaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarPacienteEscolhaMenuActionPerformed
         // Atualizar Paciente pelo nome:
-
+        String input = JOptionPane.showInputDialog("Digite o id do usuário:");
+        
+        CriarPacienteView pg = new CriarPacienteView(emf, Integer.parseInt(input));
+        
+        jDesktopPane1.add(pg);
+        pg.setVisible(true);
     }//GEN-LAST:event_atualizarPacienteEscolhaMenuActionPerformed
 
     private void removerPacienteEscolhaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerPacienteEscolhaMenuActionPerformed
         // Remover Paciente pelo e-mail:
+        String input = JOptionPane.showInputDialog("Digite o id do usuário"); 
+        
+        Secretaria sec = new Secretaria(emf);
+        
+        sec.removerPaciente(Integer.parseInt(input));
+        
+        JOptionPane.showMessageDialog(null, "Paciente " + input + " removido");
 
     }//GEN-LAST:event_removerPacienteEscolhaMenuActionPerformed
 
     private void criarAgendamentoEscolhaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarAgendamentoEscolhaMenuActionPerformed
         // criar atendimento
-
+        CriarConsultaView c = new CriarConsultaView(emf);
+        jDesktopPane1.add(c);
+        c.setVisible(true);
     }//GEN-LAST:event_criarAgendamentoEscolhaMenuActionPerformed
 
     private void atualizarAgendamentoEscolhaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarAgendamentoEscolhaMenuActionPerformed
@@ -321,6 +357,24 @@ public class MainInterface extends javax.swing.JFrame {
         lp.setVisible(true);
     }//GEN-LAST:event_listarPacientesActionPerformed
 
+    private void cancelarAgendamentoEscolhaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarAgendamentoEscolhaMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelarAgendamentoEscolhaMenuActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        ListarConsultas lc = new ListarConsultas(emf);
+        jDesktopPane1.add(lc);
+        lc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void relatorioAgendamentoEscolhaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioAgendamentoEscolhaMenuActionPerformed
+        // TODO add your handling code here:
+        ListarConsultas lc = new ListarConsultas(emf, LocalDateTime.now());
+        jDesktopPane1.add(lc);
+        lc.setVisible(true);
+    }//GEN-LAST:event_relatorioAgendamentoEscolhaMenuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem atualizarAgendamentoEscolhaMenu;
@@ -339,6 +393,7 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem gerarReceitaEscolhaMenu;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem listarPacientes;
     private javax.swing.JMenu medicoMenu;
     private javax.swing.JMenuItem numPacientesMesEscolha;

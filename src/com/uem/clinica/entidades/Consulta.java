@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Consulta {
@@ -22,8 +24,10 @@ public class Consulta {
     
     private LocalDateTime dataConsulta;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Paciente paciente;
     @OneToOne(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Prontuario prontuario;
     private TipoConsulta tipo;
 

@@ -49,6 +49,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="criarAgendamentoEscolhaMenuActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar consultas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="atualizarAgendamentoEscolhaMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Atualizar consulta"/>
@@ -59,13 +67,19 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="relatorioAgendamentoEscolhaMenu">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rio de Agendamentos"/>
+                <Property name="text" type="java.lang.String" value="Consultas amanh&#xe3;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="relatorioAgendamentoEscolhaMenuActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="cancelarAgendamentoEscolhaMenu">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cancelar Agendamento"/>
+                <Property name="text" type="java.lang.String" value="Cancelar consulta"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarAgendamentoEscolhaMenuActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -205,6 +219,11 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="jDesktopPane1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="5c" green="5c" id="&#xc1;rea de trabalho" palette="2" red="0" type="palette"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">

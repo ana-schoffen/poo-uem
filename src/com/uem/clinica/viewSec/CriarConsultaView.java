@@ -66,7 +66,16 @@ public class CriarConsultaView extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
-        hourInput.setText("  :  ");
+        try {
+            hourInput.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        hourInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hourInputActionPerformed(evt);
+            }
+        });
 
         saveButton.setBackground(new java.awt.Color(60, 103, 15));
         saveButton.setText("Salvar");
@@ -188,6 +197,10 @@ public class CriarConsultaView extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void hourInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hourInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_hourInputActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

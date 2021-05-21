@@ -88,25 +88,9 @@
             <Property name="text" type="java.lang.String" value="M&#xe9;dico"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="criarDadoAdicionalEscolhaMenu">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Definir Paciente"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="criarDadoAdicionalEscolhaMenuActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="atualizarDadoAdicionalEscolhaMenu">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Definir Consulta"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atualizarDadoAdicionalEscolhaMenuActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="removerDadoAdcicionalEscolhaMenu">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lista Pacientes"/>
+                <Property name="text" type="java.lang.String" value="Listar Pacientes"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerDadoAdcicionalEscolhaMenuActionPerformed"/>

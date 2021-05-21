@@ -5,14 +5,10 @@
  */
 package com.uem.clinica.view;
 
-import com.uem.clinica.viewSec.CriarPacienteView;
-import com.uem.clinica.viewSec.CriarConsultaView;
 
 import com.uem.clinica.entidades.Medico;
 import com.uem.clinica.entidades.Paciente;
 import com.uem.clinica.entidades.Secretaria;
-import com.uem.clinica.viewSec.ListarConsultas;
-import com.uem.clinica.viewSec.ListarPacientes;
 import java.awt.Component;
 import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;

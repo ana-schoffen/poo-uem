@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.uem.clinica.viewSec;
+package com.uem.clinica.view;
 import com.uem.clinica.entidades.Paciente;
 import com.uem.clinica.entidades.Secretaria;
 import java.time.format.DateTimeFormatter;

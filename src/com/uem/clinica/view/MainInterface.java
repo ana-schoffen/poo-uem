@@ -71,6 +71,7 @@ public class MainInterface extends javax.swing.JFrame {
         numPacientesMesEscolha = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Clínica Médica");
 
         jDesktopPane1.setBackground(java.awt.SystemColor.desktop);
 

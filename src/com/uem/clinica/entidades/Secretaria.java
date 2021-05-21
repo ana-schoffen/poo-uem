@@ -92,6 +92,8 @@ public class Secretaria {
         consulta.setDataConsulta(data);
         consulta.setPaciente(p);
         consulta.setTipo(tipo);
+        
+        consultaDAO.adicionarEntidade(consulta);
     }
 
     public void removerConsulta(int id) {

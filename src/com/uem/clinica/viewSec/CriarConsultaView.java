@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.uem.clinica.viewSec;
+import com.uem.clinica.entidades.Consulta;
 import com.uem.clinica.entidades.Paciente;
 import com.uem.clinica.entidades.Secretaria;
 import com.uem.clinica.util.TipoConsulta;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 
 public class CriarConsultaView extends javax.swing.JInternalFrame {
     private Secretaria sec;
+    private Consulta c;
     /**
      * Creates new form CreateAppointmentPage
      */
@@ -22,7 +24,26 @@ public class CriarConsultaView extends javax.swing.JInternalFrame {
         initComponents();
         this.sec = new Secretaria(emf);
     }
-
+    
+    public CriarConsultaView(EntityManagerFactory emf, int id) {
+        initComponents();
+        this.sec = new Secretaria(emf);
+        
+        c = sec.detalhesConsulta(id);
+        
+        if(c != null) {
+            dateInput.setText(c.getDataConsulta().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            hourInput.setText(c.getDataConsulta().format(DateTimeFormatter.ofPattern("kk:mm")));
+            
+            namePatientInput.setText(String.valueOf(c.getPaciente().getId()));
+            
+            if(c.getTipo() != TipoConsulta.Regular) {
+                visitSelector.setSelectedIndex(1);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Prosseguindo para criação", "Consulta não encontrada", JOptionPane.WARNING_MESSAGE);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -187,7 +208,11 @@ public class CriarConsultaView extends javax.swing.JInternalFrame {
             
             LocalDateTime horario = LocalDateTime.parse(hour + " " + date, DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy"));
             
-            sec.criarConsulta(horario, p, t);
+            if(c ==  null) {
+                sec.criarConsulta(horario, p, t);
+            } else {
+                sec.atualizarConsulta(c.getId(), horario, p, t);
+            }
             
             JOptionPane.showMessageDialog(rootPane, "Consulta criada com sucesso\n\n"
                 + date + "\n" + hour  + "\n" + p.getNome() + "\n");

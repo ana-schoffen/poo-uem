@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class ListarConsultas extends javax.swing.JInternalFrame {
     private Secretaria sec;
-    private String[] colunas = {"ID", "Data e Hora", "ID Paciente", "Nome Paciente"};
+    private String[] colunas = {"ID", "Data e Hora", "Tipo", "ID Paciente", "Nome Paciente"};
     private DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
             
 
@@ -31,7 +31,7 @@ public class ListarConsultas extends javax.swing.JInternalFrame {
         ArrayList<Consulta> lista = sec.listarConsultas();
         
         for(Consulta c: lista) {
-            Object[] ob = {c.getId(), c.getDataConsulta().format(DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy")), c.getPaciente().getId(), c.getPaciente().getNome()};
+            Object[] ob = {c.getId(), c.getDataConsulta().format(DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy")), c.getTipo().toString(), c.getPaciente().getId(), c.getPaciente().getNome()};
             tableModel.addRow(ob);
         }
     }
@@ -48,7 +48,7 @@ public class ListarConsultas extends javax.swing.JInternalFrame {
             LocalDateTime limite = LocalDate.now().plusDays(1).atTime(23,59);
             
             if (c.getDataConsulta().isAfter(dataInicial) && c.getDataConsulta().isBefore(limite)) {
-                Object[] ob = {c.getId(), c.getDataConsulta().format(DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy")), c.getPaciente().getId(), c.getPaciente().getNome()};
+                 Object[] ob = {c.getId(), c.getDataConsulta().format(DateTimeFormatter.ofPattern("kk:mm dd/MM/yyyy")), c.getTipo().toString(), c.getPaciente().getId(), c.getPaciente().getNome()};
                 tableModel.addRow(ob);
             }
         }
@@ -68,7 +68,7 @@ public class ListarConsultas extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setResizable(true);
-        setTitle("Listar Pacientes");
+        setTitle("Listar Consultas");
 
         jTable1.setModel(tableModel);
         jTable1.setEnabled(false);

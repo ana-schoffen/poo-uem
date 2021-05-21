@@ -14,9 +14,11 @@ import com.uem.clinica.entidades.Secretaria;
 import com.uem.clinica.viewSec.ListarConsultas;
 import com.uem.clinica.viewSec.ListarPacientes;
 import java.awt.Component;
+import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
@@ -27,9 +29,15 @@ public class MainInterface extends javax.swing.JFrame {
     
     private EntityManagerFactory emf;
     
+    @SuppressWarnings("unchecked")
     public MainInterface() {
         initComponents();
-        emf = Persistence.createEntityManagerFactory("clinicaPU");
+        try {
+            emf = Persistence.createEntityManagerFactory("clinicaPU");
+        } catch (PersistenceException e) {
+            JOptionPane.showMessageDialog(this, "Banco de dados Java Derby não iniciado", "Falha ao se conectar ao banco da dados", JOptionPane.ERROR_MESSAGE);
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
     }
 
     /**
